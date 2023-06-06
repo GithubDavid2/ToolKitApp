@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">ToolKit App</string>
+    <string name="note_hint">Escribe tu nota aquí...</string>
+    <string name="save">Guardar</string>
+    <string name="button_number">%s</string>
+
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="primera_divisa">Primera divisa</string>
+    <string name="segunda_divisa">Segunda divisa</string>
+    <string name="convertir">Convertir</string>
+    <string name="crear_nueva_nota">Crear nueva nota</string>
+
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>COP</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>SEK</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>JPY</item>
+
+    </string-array>
+
+    <string-array name="currencies2">
+        <item>COP</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>SEK</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>JPY</item>
+
+    </string-array>
+</resources>
