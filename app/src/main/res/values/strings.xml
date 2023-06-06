@@ -11,6 +11,16 @@
     <string name="convertir">Convertir</string>
     <string name="crear_nueva_nota">Crear nueva nota</string>
 
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="go_to_sign_up">No tengo una cuenta</string>
+
+    <string name="register">Registrarse</string>
+    <string name="go_to_login">Ya tengo una cuenta</string>
+
+    <string name="sign_out">Cerrar sesión</string>
+
     <string-array name="currencies">
         <item>USD</item>
         <item>COP</item>

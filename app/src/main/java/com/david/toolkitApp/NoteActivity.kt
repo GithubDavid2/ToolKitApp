@@ -1,10 +1,11 @@
-package com.example.myapp
+package com.david.toolkitApp
 import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 class NoteActivity : AppCompatActivity() {
     private lateinit var noteEditText: EditText
     private lateinit var saveButton: Button

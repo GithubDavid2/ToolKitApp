@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.david.toolkitApp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import com.david.toolkitApp.R
 import org.json.JSONObject
 import java.lang.Exception
 import java.net.URL
-import com.example.myapp.databinding.ActivityCurrencyConverterBinding
+import com.david.toolkitApp.databinding.ActivityCurrencyConverterBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
