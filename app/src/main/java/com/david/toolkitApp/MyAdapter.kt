@@ -1,15 +1,19 @@
 package com.david.toolkitApp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyAdapter(private var myDataset: MutableList<Pair<String, String>>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -26,18 +30,30 @@ class MyAdapter(private var myDataset: MutableList<Pair<String, String>>) :
         noteText.text = myDataset[position].second
 
         deleteButton.setOnClickListener {
-            // Aquí se implementa la lógica para eliminar la nota
-            val noteKey = myDataset[position].first
-            val sharedPref = noteText.context.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.remove(noteKey)
-            editor.apply()
-            myDataset.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, myDataset.size)
+            val noteId = myDataset[position].first
+
+            // Obtén el uid del usuario actualmente autenticado
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+            // Si el usuario no está autenticado, no permitir borrar la nota
+            if (userId == null) {
+                Toast.makeText(noteText.context, "Necesitas estar autenticado para borrar notas.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            db.collection("users").document(userId).collection("notes").document(noteId)
+                .delete()
+                .addOnSuccessListener {
+                    myDataset.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, myDataset.size)
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(noteText.context, "Error al borrar nota: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
+
     }
 
     override fun getItemCount() = myDataset.size
 }
-

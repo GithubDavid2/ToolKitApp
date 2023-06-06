@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -29,16 +30,29 @@ class RegisterActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Registro exitoso, iniciar la LoginActivity
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        // Registro exitoso, crear un documento de usuario en Firestore
+                        val userId = auth.currentUser!!.uid
+                        val db = FirebaseFirestore.getInstance()
+                        val userDocument = hashMapOf("email" to email)
+
+                        db.collection("users").document(userId)
+                            .set(userDocument)
+                            .addOnSuccessListener {
+                                // Iniciar la LoginActivity
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                // Manejar error aquí
+                            }
                     } else {
                         // Si el registro falla, mostrar un mensaje al usuario.
                         Toast.makeText(this, "Registro fallido: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
                 }
         }
+
 
         // Nuevo botón para ir a la pantalla de login
         val loginButton = findViewById<Button>(R.id.loginButton)
